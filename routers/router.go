@@ -1,7 +1,7 @@
 package routers
 
 import (
-	"testjson2/controllers"
+	"fuwafuwa/controllers"
 	"github.com/astaxie/beego"
 )
 

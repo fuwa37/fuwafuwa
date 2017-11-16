@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "testjson2/routers"
+	_ "fuwafuwa/routers"
 	"github.com/astaxie/beego"
 )
 

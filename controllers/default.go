@@ -9,10 +9,12 @@ import (
 	//"encoding/json"
 )
 
-type tkantin struct {
-	id int `json:"id"`
+type tbkantin struct {
+	id string `json:"id"`
 	nama string `json:"nama"`
-	lokasi string `json:"lokasi"`
+	lat string `json:"lat"`
+	lng string `json:"lng"`
+	desc string `json:"deskripsi"`
 }
 
 type DB map[string]interface{}
@@ -30,20 +32,20 @@ func (c *MainController) Get() {
 	}
 	defer db.Close()
 	
-	TB1:=tkantin{}
+	TB1:=tbkantin{}
 	
-	rows, err:=db.Query("select * from tkantin")
+	rows, err:=db.Query("select * from tbkantin")
 	
 	if err !=nil {
 		log.Fatal(err)
 	}
 	defer rows.Close()
 	for rows.Next(){
-		err:=rows.Scan(&TB1.id,&TB1.nama,&TB1.lokasi)
+		err:=rows.Scan(&TB1.id,&TB1.nama,&TB1.lat,&TB1.lng,&TB1.desc)
 		if err !=nil {
 			log.Fatal(err)
 		}
-		m:=map[string]interface{}{"id":TB1.id,"nama":TB1.nama,"lokasi":TB1.lokasi}
+		m:=map[string]interface{}{"id":TB1.id,"nama":TB1.nama,"lat":TB1.lat,"lng":TB1.lng,"deskripsi":TB1.desc}
 		dkantin=append(dkantin,m)
 	}
 	if err!=nil{
@@ -51,5 +53,6 @@ func (c *MainController) Get() {
 	}
 	err=rows.Err()
 	c.Data["json"]=&dkantin
-	c.ServeJSON()
+	//c.ServeJSON()
+	c.TplName = "index.tpl"
 }

@@ -6,29 +6,16 @@ import (
 	"log"
 	_ "github.com/go-sql-driver/mysql"
 	"database/sql"
+	"fuwafuwa/models"
 )
-
-type tbkantin struct {
-	ID string `json:"id"`
-	Nama string `json:"nama"`
-	Lat string `json:"lat"`
-	Lng string `json:"lng"`
-	Desc string `json:"deskripsi"`
-}
-
-type dbkantin []tbkantin
 
 type MainController struct {
 	beego.Controller
 }
 
-type Tes struct {
-	beego.Controller
-}
-
 func (c *MainController) Get() {
-	t:=tbkantin{}
-	dkantin:=dbkantin{}
+	t:=models.Tkantin{}
+	dkantin:=models.DBkantin{}
 
 	db, err:=sql.Open("mysql","root:@tcp(127.0.0.1:3306)/kantin")
 	if err != nil {
@@ -36,7 +23,7 @@ func (c *MainController) Get() {
 	}
 	defer db.Close()
 	
-	rows, err:=db.Query("select * from tbkantin")
+	rows, err:=db.Query("select * from tkantin")
 	
 	if err !=nil {
 		log.Fatal(err)

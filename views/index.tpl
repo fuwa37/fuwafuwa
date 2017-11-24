@@ -20,7 +20,6 @@
   <p id="demo"></p>
   <script>
     var obj={{.json}}
-    document.getElementById("demo").innerHTML = obj.length;
     function initMap() {
       var cmap = {lat: -6.891020, lng: 107.610378};
       var map = new google.maps.Map(document.getElementById('map'), {

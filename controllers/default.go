@@ -29,14 +29,14 @@ func (c *Kantin) Get() {
 	}
 	defer db.Close()
 	
-	rowk, err:=db.Query("select * from tkantin")
+	rowk, err:=db.Query("select nama,lat,lng,deskripsi from tkantin")
 	
 	if err !=nil {
 		log.Fatal(err)
 	}
 	defer rowk.Close()
 	for rowk.Next(){
-		err:=rowk.Scan(&t.ID,&t.Nama,&t.Lat,&t.Lng,&t.Desc)
+		err:=rowk.Scan(&t.Nama,&t.Lat,&t.Lng,&t.Desc)
 		if err !=nil {
 			log.Fatal(err)
 		}
@@ -47,14 +47,14 @@ func (c *Kantin) Get() {
 	}
 	err=rowk.Err()
 
-	rowm, err:=db.Query("select * from tmenu")
+	rowm, err:=db.Query("select tkantin.nama,tmenu.menu,tmenu.harga,tmenu.gambar from tmenu left join tkantin on tmenu.id_kantin=tkantin.id")
 
 	if err !=nil {
 		log.Fatal(err)
 	}
 	defer rowm.Close()
 	for rowm.Next(){
-		err:=rowm.Scan(&m.ID,&m.ID_kantin,&m.Menu,&m.Harga,&m.Gambar)
+		err:=rowm.Scan(&m.Kantin,&m.Menu,&m.Harga,&m.Gambar)
 		if err !=nil {
 			log.Fatal(err)
 		}
@@ -65,14 +65,15 @@ func (c *Kantin) Get() {
 	}
 	err=rowm.Err()
 	
-	c.Data["jsonk"]=&dkantin
 	c.Data["jsonm"]=&dmenu
+	c.Data["jsonk"]=&dkantin
+	
 	//c.ServeJSON()
 	
-	c.Layout = "index.tpl"
-	c.TplName = "menu.tpl"
+	//c.Layout = "index.tpl"
+	c.TplName = "index.tpl"
 }
 
 func (c *Menu) Get() {
-
+	c.TplName = "menu.tpl"
 }

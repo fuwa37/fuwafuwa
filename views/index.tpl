@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <head>
   <title>Kantin</title>
-  <meta name="viewport" content="initial-scale=1.0">
-  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <style>
   #map {
     height: 100%;
@@ -16,10 +18,19 @@
 </style>
 </head>
 <body>
-  <div id="map" style="width:500px;height:500px;"></div>
-  <p id="demo"></p>
+  <div id="map" style="width:500px;height:500px;">
+  </div>
+  <div style="position:relative; top: -500px; left: 500px;">
+    <iframe id="menu" src="" width="600" height="800"></iframe>
+  </div>
   <script>
-    var obj={{.json}}
+
+    var iframe = document.getElementById('menu'),
+    iframedoc = iframe.contentDocument || iframe.contentWindow.document;
+
+    iframedoc.body.innerHTML = {{.LayoutContent}};
+
+    var obj={{.jsonk}}
     function initMap() {
       var cmap = {lat: -6.891020, lng: 107.610378};
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -66,7 +77,7 @@
 
       var marker, i;
 
-      for (i = 0; i < obj.length; i++) {  
+      for (i = 0; i < obj.length; i++) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(obj[i].lat, obj[i].lng),
           map: map

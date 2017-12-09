@@ -17,6 +17,10 @@ type Menu struct {
 	beego.Controller
 }
 
+type Main struct {
+	beego.Controller
+}
+
 func setDB() *sql.DB {
 	db, err:=sql.Open("mysql","root:@tcp(127.0.0.1:3306)/kantin")
 	if err != nil {
@@ -91,7 +95,32 @@ func (c *Kantin) Get() {
 
 func (c *Menu) Get() {
 	dmenu:=getMenu()
-	
+
 	c.Data["jsonm"]=&dmenu
 	c.TplName = "menu.tpl"
+}
+
+func (c *Main) Get() {
+	dmenu:=getMenu()
+	dkantin:=getKantin()
+
+	c.Data["jsonk"]=&dkantin
+	c.Data["jsonm"]=&dmenu
+	c.TplName = "main.tpl"
+}
+
+func (c *Main) Post() {
+	db:=setDB()
+
+	stmt, err := db.Prepare("INSERT reqkantin SET nama=?,lat=?,lng=?")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(c.GetString("nama"),c.GetString("ltd"),c.GetString("lng"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	c.Redirect("/main",302)
 }

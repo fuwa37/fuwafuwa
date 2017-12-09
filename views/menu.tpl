@@ -2,8 +2,10 @@
 
 <html>
 <head>
+  <title>Menu</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -27,19 +29,23 @@ th {
 </style>
 </head>
 <body onLoad="CreateTableFromJSON()">
-  <div id="showData"></div>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%">
+    <h3 class="w3-bar-item">Index</h3>
+    <a href="/main" class="w3-bar-item w3-button">Home</a>
+    <a href="#" class="w3-bar-item w3-button">Menu</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  </div>
+  <div id="showData" style="margin-left:15%"></div>
   <p id="demo"></p>
   <script>
-    var myList = {{.jsonm}}
-
     function CreateTableFromJSON() {
-      var myBooks = {{.jsonm}}
+      var menuK = {{.jsonm}}
       document.getElementById("demo").innerHTML = "";
         // EXTRACT VALUE FOR HTML HEADER. 
         // ('Book ID', 'Book Name', 'Category' and 'Price')
         var col = [];
-        for (var i = 0; i < myBooks.length; i++) {
-          for (var key in myBooks[i]) {
+        for (var i = 0; i < menuK.length; i++) {
+          for (var key in menuK[i]) {
             if (col.indexOf(key) === -1) {
               col.push(key);
             }
@@ -60,13 +66,13 @@ th {
           }
 
         // ADD JSON DATA TO THE TABLE AS ROWS.
-        for (var i = 0; i < myBooks.length; i++) {
+        for (var i = 0; i < menuK.length; i++) {
 
           tr = table.insertRow(-1);
 
           for (var j = 0; j < col.length; j++) {
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i][col[j]];
+            tabCell.innerHTML = menuK[i][col[j]];
           }
         }
 

@@ -6,6 +6,7 @@ import (
 _ "github.com/go-sql-driver/mysql"
 "database/sql"
 "fuwafuwa/models"
+_"reflect"
 )
 
 type Kantin struct {
@@ -16,18 +17,22 @@ type Menu struct {
 	beego.Controller
 }
 
-func (c *Kantin) Get() {
-	t:=models.Tkantin{}
-	dkantin:=models.DBkantin{}
-
-	m:=models.Tmenu{}
-	dmenu:=models.DBmenu{}
-
+func setDB() *sql.DB {
 	db, err:=sql.Open("mysql","root:@tcp(127.0.0.1:3306)/kantin")
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer db.Close()
+	//defer db.Close()
+
+	return db
+}
+
+func getKantin() models.DBkantin {
+
+	t:=models.Tkantin{}
+	dkantin:=models.DBkantin{}
+
+	db:=setDB()
 	
 	rowk, err:=db.Query("select nama,lat,lng,deskripsi from tkantin")
 	
@@ -47,6 +52,15 @@ func (c *Kantin) Get() {
 	}
 	err=rowk.Err()
 
+	return dkantin
+}
+
+func getMenu() models.DBmenu {
+	m:=models.Tmenu{}
+	dmenu:=models.DBmenu{}
+
+	db:=setDB()
+
 	rowm, err:=db.Query("select tkantin.nama,tmenu.menu,tmenu.harga,tmenu.gambar from tmenu left join tkantin on tmenu.id_kantin=tkantin.id")
 
 	if err !=nil {
@@ -64,16 +78,20 @@ func (c *Kantin) Get() {
 		log.Fatal(err)
 	}
 	err=rowm.Err()
-	
-	c.Data["jsonm"]=&dmenu
+
+	return dmenu
+}
+
+func (c *Kantin) Get() {
+	dkantin:=getKantin()
+
 	c.Data["jsonk"]=&dkantin
-	
-	//c.ServeJSON()
-	
-	//c.Layout = "index.tpl"
 	c.TplName = "index.tpl"
 }
 
 func (c *Menu) Get() {
+	dmenu:=getMenu()
+	
+	c.Data["jsonm"]=&dmenu
 	c.TplName = "menu.tpl"
 }

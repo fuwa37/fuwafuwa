@@ -5,6 +5,7 @@
     <title>Kantin</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <style>
     #map {
@@ -29,123 +30,106 @@
   }
 </style>
 </head>
-<body onLoad="CreateTableFromJSON()">
-  <div id="map" style="width:500px;height:500px;">
+<body>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:10%">
+    <h3 class="w3-bar-item">Index</h3>
+    <a href="#" class="w3-bar-item w3-button">Home</a>
+    <a href="/menu" class="w3-bar-item w3-button">Menu</a>
+    <a href="#" class="w3-bar-item w3-button">Link 3</a>
   </div>
-  <div id="showData"></div>
-  <p id="demo"></p>
+  <div style="margin-left:15%">
+    <div id="map" style="width:500px;height:500px;">
+    </div>
+  </div>
   <script>
-    var myList = {{.jsonm}}
+    var obj={{.jsonk}}
 
-    function CreateTableFromJSON() {
-      var myBooks = {{.jsonm}}
-      document.getElementById("demo").innerHTML = "";
-        // EXTRACT VALUE FOR HTML HEADER. 
-        // ('Book ID', 'Book Name', 'Category' and 'Price')
-        var col = [];
-        for (var i = 0; i < myBooks.length; i++) {
-          for (var key in myBooks[i]) {
-            if (col.indexOf(key) === -1) {
-              col.push(key);
-            }
-          }
-        }
-
-        // CREATE DYNAMIC TABLE.
-        var table = document.createElement("table");
-
-        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
-
-        var tr = table.insertRow(-1);                   // TABLE ROW.
-
-        for (var i = 0; i < col.length; i++) {
-            var th = document.createElement("th");      // TABLE HEADER.
-            th.innerHTML = col[i];
-            tr.appendChild(th);
-          }
-
-        // ADD JSON DATA TO THE TABLE AS ROWS.
-        for (var i = 0; i < myBooks.length; i++) {
-
-          tr = table.insertRow(-1);
-
-          for (var j = 0; j < col.length; j++) {
-            var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i][col[j]];
-          }
-        }
-
-        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
-        var divContainer = document.getElementById("showData");
-        divContainer.innerHTML = "";
-        divContainer.appendChild(table);
-      }
-    </script>
-    <script>
-      var obj={{.jsonk}}
-      function initMap() {
-        var cmap = {lat: -6.891020, lng: 107.610378};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 16,
-          center: cmap,
-          styles: [
+    function initMap() {
+      var cmap = {lat: -6.891020, lng: 107.610378};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: cmap,
+        styles: [
+        {
+          "featureType": "administrative",
+          "elementType": "geometry",
+          "stylers": [
           {
-            "featureType": "administrative",
-            "elementType": "geometry",
-            "stylers": [
-            {
-              "visibility": "off"
-            }
-            ]
-          },
-          {
-            "featureType": "poi",
-            "stylers": [
-            {
-              "visibility": "off"
-            }
-            ]
-          },
-          {
-            "featureType": "road",
-            "elementType": "labels.icon",
-            "stylers": [
-            {
-              "visibility": "off"
-            }
-            ]
-          },
-          {
-            "featureType": "transit",
-            "stylers": [
-            {
-              "visibility": "off"
-            }
-            ]
+            "visibility": "off"
           }
           ]
+        },
+        {
+          "featureType": "poi",
+          "stylers": [
+          {
+            "visibility": "off"
+          }
+          ]
+        },
+        {
+          "featureType": "road",
+          "elementType": "labels.icon",
+          "stylers": [
+          {
+            "visibility": "off"
+          }
+          ]
+        },
+        {
+          "featureType": "transit",
+          "stylers": [
+          {
+            "visibility": "off"
+          }
+          ]
+        }
+        ]
+      });
+
+      var infowindow = new google.maps.InfoWindow();
+
+      var marker, i;
+
+      for (i = 0; i < obj.length; i++) {
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(obj[i].lat, obj[i].lng),
+          map: map
         });
-        var infowindow = new google.maps.InfoWindow();
 
-        var marker, i;
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+            infowindow.setContent(obj[i].Nama);
+            infowindow.open(map, marker);
+          }
+        })(marker, i));
+      }
 
-        for (i = 0; i < obj.length; i++) {
+      function placeMarker(location) {
+        if ( marker ) {
+          marker.setPosition(location);
+        } else {
           marker = new google.maps.Marker({
-            position: new google.maps.LatLng(obj[i].lat, obj[i].lng),
+            position: location,
             map: map
           });
-
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              infowindow.setContent(obj[i].nama);
-              infowindow.open(map, marker);
-            }
-          })(marker, i));
         }
+        if (!!infowindow && !!infowindow.close) {
+          infowindow.close();
+        }
+        infowindow = new google.maps.InfoWindow({
+          content: '<form method="post" action="/inputmenu">Nama kantin:</br> <input type="text" name="nama" placeholder="ex. Kantin Baru"><br>Lokasi: </br><input type="text" name="lokasi" placeholder="ex. Labtek X"><br><input type="submit" value="Submit"></form>'
+        });
+        infowindow.open(map,marker);
       }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiR44OZuZJXCsWOdazQpoVyetbaFt23a4&callback=initMap">
+
+      google.maps.event.addListener(map, 'click', function(event) {
+        placeMarker(event.latLng);
+      });
+    }
   </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiR44OZuZJXCsWOdazQpoVyetbaFt23a4&callback=initMap">
+</script>
 </body>
 </html>

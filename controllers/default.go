@@ -26,7 +26,6 @@ func setDB() *sql.DB {
 	if err != nil {
 		log.Fatal(err)
 	}
-	//defer db.Close()
 
 	return db
 }
@@ -37,6 +36,7 @@ func getKantin() models.DBkantin {
 	dkantin:=models.DBkantin{}
 
 	db:=setDB()
+	defer db.Close()
 	
 	rowk, err:=db.Query("select nama,lat,lng,deskripsi from tkantin")
 	
@@ -64,6 +64,7 @@ func getMenu() models.DBmenu {
 	dmenu:=models.DBmenu{}
 
 	db:=setDB()
+	defer db.Close()
 
 	rowm, err:=db.Query("select tkantin.nama,tmenu.menu,tmenu.harga,tmenu.gambar from tmenu left join tkantin on tmenu.id_kantin=tkantin.id")
 

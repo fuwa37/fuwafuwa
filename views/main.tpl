@@ -41,7 +41,7 @@
   /* Style the tabmenu content */
   .tabmenucontent {
     display: none;
-    padding: 6px 12px;
+    padding: 60px 12px;
     border: 1px solid #ccc;
     border-top: none;
   }
@@ -89,8 +89,8 @@ div.tab {
   float: left;
   border: 1px solid #ccc;
   background-color: #f1f1f1;
-  width: 30%;
-  height: 600px;
+  width: 15%;
+  height: 100%;
 }
 
 /* Style the buttons inside the tab */
@@ -123,9 +123,9 @@ div.tab button.active {
   float: left;
   padding: 0px 12px;
   border: 1px solid #ccc;
-  width: 70%;
+  width: 85%;
   border-left: none;
-  height: 600px;
+  height: 100%;
 }
 </style>
 </head>
@@ -138,106 +138,122 @@ div.tab button.active {
   </div>
 
   <div id="Peta" class="tabcontent">
-    <div id="map" style="width:500px;height:500px;">
-
+    <div id="map" style="height:500px;">
     </div>
-    <p id="demo"></p>
   </div>
 
   <div id="Menu" class="tabcontent">
-    <div id="showData" style="margin-left:0%"></div>
-    <p id="demo"></p>
+    <div id="demo"></div>
+    
   </div>
 
   <div id="About" class="tabcontent">
-
-    <div class="tabmenu">
-      <button class="tabmenulinks" onclick="openMenu(event, 'London')" id="defaultOpenmenu">London</button>
-      <button class="tabmenulinks" onclick="openMenu(event, 'Paris')">Paris</button>
-    </div>
-
-    <div id="London" class="tabmenucontent">
-      <h3>London</h3>
-      <p>London is the capital city of England.</p>
-    </div>
-
-    <div id="Paris" class="tabmenucontent">
-      <h3>Paris</h3>
-      <p>Paris is the capital of France.</p> 
-    </div>
-
+    <div id="showData" style="margin-left:0%"></div>
+    <div id="tes3"></div>
   </div>
-
   <script>
-    function openIndex(evt, index) {
-      var i, tabcontent, tablinks;
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
-      document.getElementById(index).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    document.getElementById("defaultOpen").click();
-  </script>
-
-  <script>
-    function openMenu(evt, menu) {
-      var i, tabmenucontent, tabmenulinks;
-      tabmenucontent = document.getElementsByClassName("tabmenucontent");
-      for (i = 0; i < tabmenucontent.length; i++) {
-        tabmenucontent[i].style.display = "none";
-      }
-      tabmenulinks = document.getElementsByClassName("tabmenulinks");
-      for (i = 0; i < tabmenulinks.length; i++) {
-        tabmenulinks[i].className = tabmenulinks[i].className.replace(" active", "");
-      }
-      document.getElementById(menu).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
-    document.getElementById("defaultOpenmenu").click();
-  </script>
-  <script>
-    function CreateTableFromJSON(menu) {
-      var menuK = {{.jsonm}}
-      document.getElementById("demo").innerHTML = "";
-      var col = [];
-      for (var i = 0; i < menuK.length; i++) {
-        for (var key in menuK[i]) {
-          if (col.indexOf(key) === -1) {
-            col.push(key);
-          }
+    var menuK = {{.jsonm}}
+    var col = [];
+    for (var i = 0; i < menuK.length; i++) {
+      for (var key in menuK[i]) {
+        if (col.indexOf(key) === -1) {
+          col.push(key);
         }
       }
+    }
+    function CreateTableFromJSON(menu,no) {
       var table = document.createElement("table");
 
       var tr = table.insertRow(-1);      
 
-      for (var i = 0; i < col.length; i++) {
+      for (var i = 1; i < col.length; i++) {
         var th = document.createElement("th");   
         th.innerHTML = col[i];
         tr.appendChild(th);
       }
-      for (var i = 0; i < menuK.length; i++) {
+
+      var idx=0;
+      var edx=0;
+      for (var k=0;k<menuK.length;k++) {
+        if (menuK[k][col[0]]==menu) {
+          idx=k;
+          break;
+        }
+      }
+      for (var k=0;k<menuK.length;k++) {
+        if (menuK[k][col[0]]==menu) {
+          edx=k;
+        }
+      }
+      for (var i = idx; i < edx; i++) {
 
         tr = table.insertRow(-1);
 
-        for (var j = 0; j < col.length; j++) {
+        for (var j = 1; j < col.length; j++) {
           var tabCell = tr.insertCell(-1);
           tabCell.innerHTML = menuK[i][col[j]];
+
         }
       }
 
-      var divContainer = document.getElementById("showData");
+      var divContainer = document.getElementById("showData"+no);
       divContainer.innerHTML = "";
-      divContainer.appendChild(table); 
+      divContainer.appendChild(table);
+
+      //document.getElementById("tes3").innerHTML = "aaaa"+no; 
     }
-    window.onload=onLoad=CreateTableFromJSON('sasdasd');
+    
+    //window.onload=CreateTableFromJSON('Nasi Jepang');
   </script>
+  <script>
+    var menuKantin = {{.jsonm}}
+    var dataKantin = {{.jsonk}}
+    var kolom = [];
+    for (var i = 0; i < dataKantin.length; i++) {
+      for (var key in dataKantin[i]) {
+        if (kolom.indexOf(key) === -1) {
+          kolom.push(key);
+        }
+      }
+    }
+    var add=document.getElementById('demo');
+    
+
+    var data1='<div class="tabmenu"><div id="tes"></div><div id="tes2"></div></div>';
+    var data2='<button class="tabmenulinks" onclick="openMenu(event,';
+    var data3;
+    var data31=',';
+    var data32;
+    var data4=')">';
+    var data5='</button>';
+    var data;
+    var data6='<div id="';
+    var data7='"class="tabmenucontent">';
+    var data8='<div id="showData';
+    var data10='" style="margin-left:0%"></div>';
+    var data9='</div>';
+    var data11;
+
+    add.innerHTML+=data1
+    var addt=document.getElementById('tes');
+    var addt2=document.getElementById('tes2');
+    for (i=0;i<dataKantin.length-1;i++) {
+      data3=dataKantin[i][kolom[0]];
+      data32=i;
+      data=data2+"'"+data3+"'"+data31+data32+data4+data3+data5;
+      addt.innerHTML+=data;
+    }
+
+    for (i=0;i<dataKantin.length-1;i++) {
+      data3=dataKantin[i][kolom[0]];
+      data11=i;
+      data=data6+data3+data7+data8+data11+data10+data9;
+      addt2.innerHTML+=data;
+    }
+  </script>
+  <script>
+  </script>
+
   <script>
     var obj={{.jsonk}}
 
@@ -308,8 +324,8 @@ div.tab button.active {
         ltd=event.latLng.lat().toFixed(6)
         lng=event.latLng.lng().toFixed(6)
         placeMarker(event.latLng);
-        
-        
+
+
       });
 
       function placeMarker(location) {
@@ -329,13 +345,42 @@ div.tab button.active {
           content: isi
         });
         infowindow.open(map,marker);
-        //document.getElementById("demo").innerHTML = lng; 
       }
-
-      
-      
-
     }
+  </script>
+  <script>
+    function openIndex(evt, index) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(index).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+    document.getElementById("defaultOpen").click();
+  </script>
+
+  <script>
+    function openMenu(evt, menu,nomor) {
+      var i, tabmenucontent, tabmenulinks;
+      tabmenucontent = document.getElementsByClassName("tabmenucontent");
+      for (i = 0; i < tabmenucontent.length; i++) {
+        tabmenucontent[i].style.display = "none";
+      }
+      tabmenulinks = document.getElementsByClassName("tabmenulinks");
+      for (i = 0; i < tabmenulinks.length; i++) {
+        tabmenulinks[i].className = tabmenulinks[i].className.replace(" active", "");
+      }
+      document.getElementById(menu).style.display = "block";
+      evt.currentTarget.className += " active";
+      CreateTableFromJSON(menu,nomor);
+    }
+    //document.getElementById("defaultOpenmenu").click();
   </script>
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCiR44OZuZJXCsWOdazQpoVyetbaFt23a4&callback=initMap">

@@ -22,7 +22,7 @@ type Main struct {
 }
 
 func setDB() *sql.DB {
-	db, err:=sql.Open("mysql","root:@tcp(127.0.0.1:3306)/kantin")
+	db, err:=sql.Open("mysql","kantin:Nb8rE2W~-82H@tcp(den1.mysql6.gear.host:3306)/kantin")
 	if err != nil {
 		log.Fatal(err)
 	}

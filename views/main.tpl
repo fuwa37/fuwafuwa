@@ -48,24 +48,13 @@
 </style>
 <style>
 #map {
-  height: 100%;
+  height: 500px;
+  width: 500px
 }
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-}
-</style>
-<style>
-table, th, td 
-{
-  margin:10px 0;
-  border:solid 1px #333;
-  padding:2px 4px;
-  font:15px Verdana;
-}
-th {
-  font-weight:bold;
 }
 </style>
 <style>
@@ -138,7 +127,7 @@ div.tab button.active {
   </div>
 
   <div id="Peta" class="tabcontent">
-    <div id="map" style="height:500px;">
+    <div id="map">
     </div>
   </div>
 

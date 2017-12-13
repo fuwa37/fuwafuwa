@@ -4,6 +4,7 @@ Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-m
 # Lingkup operasi
 ```
 - DBMS   :MySQL
+  - Host  :den1.mysql6.gear.host:3306 
 - Bahasa :Go
   - Framework  :Beego
 ```

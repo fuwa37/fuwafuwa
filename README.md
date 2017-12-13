@@ -34,5 +34,9 @@ http://167.205.67.244:3737/main
 2. Jalankan fuwafuwa.exe
 
 ###### Pengembangan Lanjut
+```
+Trello Boards
+https://trello.com/b/SyRvAxXq/irfan-reynaldi
+```
 - [ ] Melengkapi basis data kantin dan menu
 - [ ] Memperbaiki tampilan web (user friendly)

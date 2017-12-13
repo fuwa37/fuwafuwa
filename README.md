@@ -1,13 +1,17 @@
-# Lokasi Kantin ITB
+# Lokasi Kantin di ITB
 
 ## Daftar isi
+- [Latar Belakang](#latar-belakang)
 - [Deskripsi](#deskripsi)
 - [Lingkup Operasi](#lingkup-operasi)
 - [Akses Aplikasi](#akses-aplikasi)
 - [Menjalankan Aplikasi](#menjalankan-aplikasi)
 
+## Latar Belakang
+Kadangkala seseorang bingung untuk makan di mana, ingin memesan apa, hingga bertanya-tanya di mana suatu kantin berada.
+
 ## Deskripsi
-Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin.
+Aplikasi menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin.
 Pengguna dapat menambahkan kantin baru dengan menunya.
 
 ## Lingkup Operasi

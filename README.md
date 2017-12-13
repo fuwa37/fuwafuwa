@@ -1,7 +1,7 @@
 # Lokasi Kantin ITB
 
 ## Daftar isi
-- <a name="deskripsi"></a>Deskripsi
+- [Deskripsi](#deskripsi)
 
 ## Deskripsi
 Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin.

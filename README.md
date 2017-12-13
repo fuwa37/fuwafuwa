@@ -1,7 +1,13 @@
-# Deskripsi
-Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin
+# Lokasi Kantin ITB
 
-# Lingkup operasi
+## Daftar isi
+- <a name="deskripsi"></a>Deskripsi
+
+## Deskripsi
+Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin.
+Pengguna dapat menambahkan kantin baru dengan menunya.
+
+## Lingkup operasi
 ```
 - DBMS   :MySQL
   - Host  :
@@ -12,7 +18,10 @@ Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-m
 ```
 Aplikasi dapat dibuka melalui web browser
 
-# Menjalankan aplikasi:
-1. Download fuwafuwa.tar.gz
-2. Ekstrak file
-3. Jalankan fuwafuwa.exe
+## Akses aplikasi
+http://167.205.67.244:3737/main
+
+## Menjalankan aplikasi
+1. Clone atau download
+    - Ekstrak file jika download sebagai zip
+2. Jalankan fuwafuwa.exe

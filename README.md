@@ -1,5 +1,5 @@
 # Deskripsi
-Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang uang disediakan masing-masing kantin
+Web service menunjukkan lokasi kantin-kantin yang berada dalam ITB dengan menu-menu yang disediakan masing-masing kantin
 
 # Lingkup operasi
 ```

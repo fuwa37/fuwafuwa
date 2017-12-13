@@ -6,7 +6,7 @@ import (
 _ "github.com/go-sql-driver/mysql"
 "database/sql"
 "fuwafuwa/models"
-_"reflect"
+"strconv"
 )
 
 type Kantin struct {
@@ -17,17 +17,59 @@ type Menu struct {
 	beego.Controller
 }
 
+type Req struct {
+	beego.Controller
+}
+
 type Main struct {
 	beego.Controller
 }
 
 func setDB() *sql.DB {
-	db, err:=sql.Open("mysql","kantin:Nb8rE2W~-82H@tcp(den1.mysql6.gear.host:3306)/kantin")
+	db, err:=sql.Open("mysql","root:@tcp(167.205.67.251:3306)/kantin")
+	err=db.Ping()
 	if err != nil {
-		log.Fatal(err)
+		db, err=sql.Open("mysql","kantin:Nb8rE2W~-82H@tcp(den1.mysql6.gear.host:3306)/kantin")
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	return db
+}
+
+func (c *Main) Prepare() {
+	var temp int
+	var id int
+
+	session := c.StartSession()
+	ID := session.Get("ID")
+	if ID != nil {
+	}
+
+	db:=setDB()
+	defer db.Close()
+
+	row, err:=db.Query("select id from reqkantin")
+	if err !=nil {
+		log.Fatal(err)
+	}
+	defer row.Close()
+	for row.Next(){
+		temp=id
+		err:=row.Scan(&id)
+		if err !=nil {
+			log.Fatal(err)
+		}
+	}
+	ID=temp
+	if err!=nil{
+		log.Fatal(err)
+	}
+	err=row.Err()
+
+	session.Set("ID",id+1)
+	log.Print(id)
 }
 
 func getKantin() models.DBkantin {
@@ -111,17 +153,52 @@ func (c *Main) Get() {
 }
 
 func (c *Main) Post() {
-	db:=setDB()
+	session := c.StartSession()
+	ID := session.Get("ID")
+	if ID != nil {
+		db:=setDB()
 
-	stmt, err := db.Prepare("INSERT reqkantin SET nama=?,lat=?,lng=?")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer stmt.Close()
+		stmt, err := db.Prepare("INSERT reqkantin SET id=?, nama=?,lat=?,lng=?")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer stmt.Close()
 
-	_, err = stmt.Exec(c.GetString("nama"),c.GetString("ltd"),c.GetString("lng"))
-	if err != nil {
-		log.Fatal(err)
+		_, err = stmt.Exec(ID,c.GetString("nama"),c.GetString("ltd"),c.GetString("lng"))
+		if err != nil {
+			log.Fatal(err)
+		}
+		c.Redirect("/req",302)
 	}
-	c.Redirect("/main",302)
+}
+
+func (c *Req) Get() {
+	c.TplName="req.tpl"
+}
+
+func (c *Req) Post() {
+	session := c.StartSession()
+	ID := session.Get("ID")
+	if ID != nil {
+		db:=setDB()
+
+		stmt, err := db.Prepare("INSERT reqmenu SET id_kantin=?, menu=?,harga=?")
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer stmt.Close()
+
+		j,_:=strconv.Atoi(c.GetString("count"))
+		for i:=1;i<=j;i++{
+			k:=strconv.Itoa(i)
+			a:="menu"+k
+			b:="harga"+k
+			_, err = stmt.Exec(ID,c.GetString(a),c.GetString(b))
+			if err != nil {
+				log.Fatal(err)
+			}
+		}
+
+		c.TplName="trm.tpl"
+	}
 }

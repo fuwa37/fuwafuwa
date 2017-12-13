@@ -9,4 +9,5 @@ func init() {
     beego.Router("/kantin", &controllers.Kantin{})
     beego.Router("/menu", &controllers.Menu{})
     beego.Router("/main", &controllers.Main{})
+    beego.Router("/req", &controllers.Req{})
 }

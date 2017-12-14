@@ -5,6 +5,7 @@
 - [Deskripsi](#deskripsi)
 - [Lingkup Operasi](#lingkup-operasi)
 - [Akses Aplikasi](#akses-aplikasi)
+  - [Penggunaan](#penggunaan)
 - [Menjalankan Aplikasi](#menjalankan-aplikasi)
 
 ## Latar Belakang
@@ -27,6 +28,12 @@ Aplikasi dapat dibuka melalui web browser
 ## Akses Aplikasi
 http://167.205.67.244:3737/main
 > Hanya dapat diakses melalui jaringan kampus ITB
+### Penggunaan
+<img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/1.png" width="480">
+<img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/2.png" width="480">
+<img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/3.png" width="480">
+<img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/4.png" width="480">
+<img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/5.png" width="480">
 
 ## Menjalankan Aplikasi
 1. Clone atau download

@@ -40,7 +40,7 @@
       count--;
     }
   </script>
-  <form method="" action="">
+  <form method="POST" action="">
     <div id="container">
       <input type=button onclick="addinput()" value="+">
       <input type="hidden" id="count" name="count" value="" readonly>

@@ -17,12 +17,13 @@ Pengguna dapat menambahkan kantin baru dengan menunya.
 
 ## Lingkup Operasi
 ```
-- DBMS   :MySQL
+- DBMS    :MySQL
   - Host  :
     - Server 1  :lokal
     - Server 2  :den1.mysql6.gear.host:3306
-- Bahasa :Go
+- Bahasa  :Go
   - Framework  :Beego
+- API     : Google Maps Javascript API
 ```
 Aplikasi dapat dibuka melalui web browser
 ## Akses Aplikasi

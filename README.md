@@ -27,7 +27,7 @@ Pengguna dapat menambahkan kantin baru dengan menunya.
 ```
 Aplikasi dapat dibuka melalui web browser
 ## Akses Aplikasi
-http://167.205.67.244:3737/main
+~~http://167.205.67.244:3737/main~~
 > Hanya dapat diakses melalui jaringan kampus ITB
 ### Penggunaan
 <img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/1.png" width="480">
@@ -44,7 +44,7 @@ http://167.205.67.244:3737/main
 ##### Pengembangan Lanjut
 
 ###### Trello Boards
-> https://trello.com/b/SyRvAxXq/irfan-reynaldi
+> ~~https://trello.com/b/SyRvAxXq/irfan-reynaldi~~
 
 - [ ] Melengkapi basis data kantin dan menu
 - [ ] Memperbaiki tampilan web (user friendly)

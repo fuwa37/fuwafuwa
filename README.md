@@ -17,17 +17,20 @@ Pengguna dapat menambahkan kantin baru dengan menunya.
 
 ## Lingkup Operasi
 ```
-- DBMS   :MySQL
+- DBMS    :MySQL
   - Host  :
     - Server 1  :lokal
     - Server 2  :den1.mysql6.gear.host:3306
-- Bahasa :Go
+- Bahasa  :Go
   - Framework  :Beego
+- API     :Google Maps Javascript API
 ```
 Aplikasi dapat dibuka melalui web browser
 ## Akses Aplikasi
-http://167.205.67.244:3737/main
+~~http://167.205.67.244:3737/main~~
 > Hanya dapat diakses melalui jaringan kampus ITB
+
+https://kantin-itb-g.herokuapp.com/main
 ### Penggunaan
 <img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/1.png" width="480">
 <img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/2.png" width="480">
@@ -43,7 +46,7 @@ http://167.205.67.244:3737/main
 ##### Pengembangan Lanjut
 
 ###### Trello Boards
-> https://trello.com/b/SyRvAxXq/irfan-reynaldi
+> ~~https://trello.com/b/SyRvAxXq/irfan-reynaldi~~
 
 - [ ] Melengkapi basis data kantin dan menu
 - [ ] Memperbaiki tampilan web (user friendly)

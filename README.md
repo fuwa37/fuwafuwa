@@ -27,10 +27,14 @@ Pengguna dapat menambahkan kantin baru dengan menunya.
 ```
 Aplikasi dapat dibuka melalui web browser
 ## Akses Aplikasi
-~~http://167.205.67.244:3737/main~~
 > Hanya dapat diakses melalui jaringan kampus ITB
 
+~~http://167.205.67.244:3737/main~~
+
+> Global
+
 https://kantin-itb-g.herokuapp.com/main
+
 ### Penggunaan
 <img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/1.png" width="480">
 <img src="https://raw.githubusercontent.com/irs37/fuwafuwa/master/sc/2.png" width="480">
